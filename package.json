@@ -1,5 +1,9 @@
 {
   "name": "serbian-blog",
-  "private": true,
-  "dependencies": {}
+  "version": "1.0.0",
+  "description": "serbian blog",
+  "main": "server.js",
+  "repository": "git@github.com:djackreuter/serbian-blog.git",
+  "author": "Dylan Reuter <djreuter45@gmail.com>",
+  "license": "MIT"
 }
