@@ -3,7 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const user = require('./routes/api/user');
+const users = require('./routes/api/users');
+const posts = require('./routes/api/posts');
 
 const db = require('./config/keys').MONGODB_URI;
 const app = express();
@@ -19,7 +20,8 @@ app.get('/', (req, res) => {
   res.send('Testing');
 });
 
-app.use('/api/user', user);
+app.use('/api/users', users);
+app.use('/api/posts', posts);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
