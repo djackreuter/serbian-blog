@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
@@ -16,9 +17,8 @@ mongoose.connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log('Could not connect to database', err));
 
-app.get('/', (req, res) => {
-  res.send('Testing');
-});
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 app.use('/api/users', users);
 app.use('/api/posts', posts);
