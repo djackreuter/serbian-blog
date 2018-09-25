@@ -4,6 +4,8 @@ const { User } = require('../../models/User');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const cloudinary = require('cloudinary');
+require('../../config/cloudinary')(cloudinary);
 
 /**
  * @route  POST api/users/register
@@ -15,18 +17,27 @@ router.post('/register', async (req, res) => {
   if (emailExists) {
     return res.status(400).send('Email already in use');
   }
+  const uploadImage = new Promise((resolve, reject) => {
+    cloudinary.v2.uploader.upload(req.body.image, 
+      (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+    });
+  });
+  let image = JSON.stringify(await uploadImage);
   const newUser = new User({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    bio: req.body.bio,
+    location: req.body.location,
+    image
   });
-  try {
-    newUser.save().then((user) => {
-      return res.status(200).send(user);
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  newUser.save().then((user) => {
+    return res.send(user);
+  }).catch((err) => console.log(err));
 });
 
 /**
@@ -65,6 +76,12 @@ router.get('/', passport.authenticate('jwt', { session: false }),
       return res.send(user);
     }).catch((err) => res.status(400).send(err));
 });
+
+/**
+ * @route POST api/users
+ * @desc edit user profile
+ * @access private
+ */
 
 
 module.exports = router;
