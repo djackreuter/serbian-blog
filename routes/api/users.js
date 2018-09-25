@@ -4,8 +4,7 @@ const { User } = require('../../models/User');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const cloudinary = require('cloudinary');
-require('../../config/cloudinary')(cloudinary);
+const { uploadImage } = require('../../utils/uploadImage');
 
 /**
  * @route  POST api/users/register
@@ -17,16 +16,7 @@ router.post('/register', async (req, res) => {
   if (emailExists) {
     return res.status(400).send('Email already in use');
   }
-  const uploadImage = new Promise((resolve, reject) => {
-    cloudinary.v2.uploader.upload(req.body.image, 
-      (error, result) => {
-        if (error) {
-          reject(error);
-        }
-        resolve(result);
-    });
-  });
-  let image = JSON.stringify(await uploadImage);
+  let image = JSON.stringify(await uploadImage(req.body.image));
   const newUser = new User({
     name: req.body.name,
     email: req.body.email,
@@ -82,7 +72,25 @@ router.get('/', passport.authenticate('jwt', { session: false }),
  * @desc edit user profile
  * @access private
  */
-
+router.post('/', passport.authenticate('jwt', { session: false }), 
+  async (req, res) => {
+    User.findById(req.user.id).then((user) => {
+      if (user) {
+        if (req.body.name) user.name = req.body.name;
+        if (req.body.email) user.email = req.body.email;
+        if (req.body.password) user.password = req.body.password;
+        if (req.body.bio) user.bio = req.body.bio;
+        if (req.body.location) user.location = req.body.location;
+        if (req.body.image) {
+          uploadImage(req.body.image).then((image) => {
+            JSON.stringify(image);
+            user.image = image;
+          });
+        }
+        user.save().then((updatedUser) => res.json(updatedUser));
+      }
+    });
+});
 
 module.exports = router;
 
