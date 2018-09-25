@@ -15,6 +15,17 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  bio: {
+    type: String,
+    required: true,
+    maxlength: 1000
+  },
+  location: {
+    type: String
+  },
+  image: {
+    type: String
   }
 });
 
