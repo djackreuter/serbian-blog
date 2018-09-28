@@ -36,19 +36,23 @@ router.post('/register', async (req, res) => {
  * @access public
  */
 router.post('/login', async (req, res) => {
-  const { email, password } = _.pick(req.body, ['email', 'password']);
-  let user = await User.findOne({ email });
-  if (!user) {
-    return res.status(404).send('Email or password is incorrect');
-  }
-  let correctPassword = await bcrypt.compare(password, user.password);
-  if (correctPassword) {
-    let token = await user.generateAuthToken();
-    if (token) {
-      return res.json({ token: `Bearer ${token}` });
+  try {
+    const { email, password } = _.pick(req.body, ['email', 'password']);
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).send('Email or password is incorrect');
     }
-  } else {
-    return res.status(400).send('Email or password is incorrect');
+    let correctPassword = await bcrypt.compare(password, user.password);
+    if (correctPassword) {
+      let token = await user.generateAuthToken();
+      if (token) {
+        return res.json({ token: `Bearer ${token}` });
+      }
+    } else {
+      return res.status(400).send('Email or password is incorrect');
+    }
+  } catch (err) {
+    return res.status(400).json(err);
   }
 });
 
@@ -73,23 +77,24 @@ router.get('/', passport.authenticate('jwt', { session: false }),
  * @access private
  */
 router.post('/', passport.authenticate('jwt', { session: false }), 
-  async (req, res) => {
+  (req, res) => {
     User.findById(req.user.id).then((user) => {
-      if (user) {
-        if (req.body.name) user.name = req.body.name;
-        if (req.body.email) user.email = req.body.email;
-        if (req.body.password) user.password = req.body.password;
-        if (req.body.bio) user.bio = req.body.bio;
-        if (req.body.location) user.location = req.body.location;
-        if (req.body.image) {
-          uploadImage(req.body.image).then((image) => {
-            JSON.stringify(image);
-            user.image = image;
-          });
-        }
-        user.save().then((updatedUser) => res.json(updatedUser));
+      if (!user) {
+        return res.status(404).send('Could not find user');
       }
-    });
+      if (req.body.name) user.name = req.body.name;
+      if (req.body.email) user.email = req.body.email;
+      if (req.body.password) user.password = req.body.password;
+      if (req.body.bio) user.bio = req.body.bio;
+      if (req.body.location) user.location = req.body.location;
+      if (req.body.image) {
+        uploadImage(req.body.image).then((image) => {
+          JSON.stringify(image);
+          user.image = image;
+        });
+      }
+      user.save().then((updatedUser) => res.json(updatedUser));
+    }).catch((err) => console.log(err));
 });
 
 module.exports = router;
