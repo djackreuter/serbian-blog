@@ -12,22 +12,28 @@ const { uploadImage } = require('../../utils/uploadImage');
  * @access public
  */
 router.post('/register', async (req, res) => {
-  const emailExists = await User.findOne({ email: req.body.email });
-  if (emailExists) {
-    return res.status(400).send('Email already in use');
-  }
-  let image = JSON.stringify(await uploadImage(req.body.image));
-  const newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    bio: req.body.bio,
-    location: req.body.location,
-    image
-  });
-  newUser.save().then((user) => {
+  try {
+    const emailExists = await User.findOne({ email: req.body.email });
+    if (emailExists) {
+      return res.status(400).send('Email already in use');
+    }
+    let image;
+    if (req.body.image) {
+      image = JSON.stringify(await uploadImage(req.body.image));
+    }
+    const newUser = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      bio: req.body.bio,
+      location: req.body.location,
+      image
+    });
+    const user = await newUser.save();
     return res.send(user);
-  }).catch((err) => console.log(err));
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 });
 
 /**
@@ -77,24 +83,28 @@ router.get('/', passport.authenticate('jwt', { session: false }),
  * @access private
  */
 router.post('/', passport.authenticate('jwt', { session: false }), 
-  (req, res) => {
-    User.findById(req.user.id).then((user) => {
-      if (!user) {
-        return res.status(404).send('Could not find user');
-      }
-      if (req.body.name) user.name = req.body.name;
-      if (req.body.email) user.email = req.body.email;
-      if (req.body.password) user.password = req.body.password;
-      if (req.body.bio) user.bio = req.body.bio;
-      if (req.body.location) user.location = req.body.location;
-      if (req.body.image) {
-        uploadImage(req.body.image).then((image) => {
-          JSON.stringify(image);
-          user.image = image;
-        });
-      }
-      user.save().then((updatedUser) => res.json(updatedUser));
-    }).catch((err) => console.log(err));
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+        if (!user) {
+          return res.status(404).send('Could not find user');
+        }
+        if (req.body.name) user.name = req.body.name;
+        if (req.body.email) user.email = req.body.email;
+        if (req.body.password) user.password = req.body.password;
+        if (req.body.bio) user.bio = req.body.bio;
+        if (req.body.location) user.location = req.body.location;
+        if (req.body.image) {
+          uploadImage(req.body.image).then((image) => {
+            JSON.stringify(image);
+            user.image = image;
+          });
+        }
+        const updatedUser = await user.save();
+        return res.json(updatedUser);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
 });
 
 module.exports = router;
