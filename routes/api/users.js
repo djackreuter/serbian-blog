@@ -78,11 +78,11 @@ router.get('/', passport.authenticate('jwt', { session: false }),
 });
 
 /**
- * @route POST api/users
+ * @route PATCH api/users
  * @desc edit user profile
  * @access private
  */
-router.post('/', passport.authenticate('jwt', { session: false }), 
+router.patch('/', passport.authenticate('jwt', { session: false }), 
   async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
