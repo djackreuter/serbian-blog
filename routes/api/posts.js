@@ -67,5 +67,20 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     }
 });
 
+/**
+ * @route  DELETE api/posts
+ * @desc   delete a post
+ * @access private
+ */
+router.delete('/:id', passport.authenticate('jwt', { session: false }), 
+  async (req, res) => {
+    try {
+      await Post.findByIdAndDelete(req.params.id);
+      return res.send('Post deleted successfully');
+    } catch (err) {
+      return res.status(400).json(err);
+    }
+});
+
 
 module.exports = router;
