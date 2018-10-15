@@ -76,11 +76,32 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
       await Post.findByIdAndDelete(req.params.id);
-      return res.send('Post deleted successfully');
+      return res.json({success: true});
     } catch (err) {
       return res.status(400).json(err);
     }
 });
+
+/**
+ * @route POST api/posts/:id/comment
+ * @desc comment on a post
+ * @access public
+ */
+router.post('/:id/comment', async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).populate('author', 'name');
+    const comment = {
+      text: req.body.text,
+      name: req.body.name
+    };
+    post.comments.unshift(comment);
+    savedPost = await post.save();
+    return res.json(savedPost);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+});
+
 
 
 module.exports = router;
