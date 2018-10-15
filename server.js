@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const helmet = require('helmet');
 
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
@@ -10,6 +11,7 @@ const posts = require('./routes/api/posts');
 const db = require('./config/keys').MONGODB_URI;
 const app = express();
 
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

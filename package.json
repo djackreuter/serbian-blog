@@ -15,6 +15,7 @@
     "cloudinary": "^1.11.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "helmet": "^3.14.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.2.12",
