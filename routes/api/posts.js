@@ -85,14 +85,15 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
 /**
  * @route POST api/posts/:id/comment
  * @desc comment on a post
- * @access public
+ * @access private
  */
-router.post('/:id/comment', async (req, res) => {
+router.post('/:id/comment', passport.authenticate('jwt', { session: false }), 
+  async (req, res) => {
   try {
     const post = await Post.findById(req.params.id).populate('author', 'name');
     const comment = {
       text: req.body.text,
-      name: req.body.name
+      name: req.user.name
     };
     post.comments.unshift(comment);
     savedPost = await post.save();
