@@ -63,6 +63,33 @@ router.post('/login', async (req, res) => {
 });
 
 /**
+ * @route  GET api/users/auth/google
+ * @desc   Login a user via google
+ * @access public
+ */
+router.get('/auth/google', 
+  passport.authenticate('google', { scope: ['profile'] }));
+
+  /**
+ * @route  GET api/users/auth/google/callback
+ * @desc   redirect user after google auth
+ * @access public
+ */
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { session: false, failureRedirect: '/' }),
+  async (req, res) => {
+    try {
+      const token = await req.user.generateAuthToken();
+      if (token) {
+        return res.json({ token: `Bearer ${token}` });
+      }
+    } catch (err) {
+      return res.status(400).json({error: 'Could not authenticate', err});
+    }
+  });
+
+
+/**
  * @route  GET api/users
  * @desc   get current user
  * @access private
