@@ -7,12 +7,15 @@
   "author": "Dylan Reuter <djreuter45@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn start\" \"yarn run client\""
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.11.0",
+    "concurrently": "^4.0.1",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.14.0",
