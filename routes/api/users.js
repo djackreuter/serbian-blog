@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
  * @desc   Login a user via google
  * @access public
  */
-router.get('/auth/google', 
+router.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
   /**
@@ -75,7 +75,7 @@ router.get('/auth/google',
  * @desc   redirect user after google auth
  * @access public
  */
-router.get('/auth/google/callback', 
+router.get('/auth/google/callback',
   passport.authenticate('google', { session: false, failureRedirect: '/' }),
   async (req, res) => {
     try {
@@ -109,7 +109,7 @@ router.get('/', passport.authenticate('jwt', { session: false }),
  * @desc edit user profile
  * @access private
  */
-router.patch('/', passport.authenticate('jwt', { session: false }), 
+router.patch('/', passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
@@ -135,4 +135,3 @@ router.patch('/', passport.authenticate('jwt', { session: false }),
 });
 
 module.exports = router;
-
