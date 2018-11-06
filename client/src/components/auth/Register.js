@@ -32,7 +32,7 @@ export default class Register extends Component {
     }
     axios.post('/api/users/register', newUser).then((res) => {
       console.log(res);
-    }).catch((err) => console.log(err));
+    }).catch((err) => console.log(err, newUser));
   }
 
   render() {
