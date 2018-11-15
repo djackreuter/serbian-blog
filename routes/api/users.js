@@ -6,16 +6,20 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const { uploadImage } = require('../../utils/uploadImage');
 
+// TODO: Client side validation
+
 /**
  * @route  POST api/users/register
  * @desc   Register a new user
  * @access public
  */
 router.post('/register', async (req, res) => {
+  let errors = {};
   try {
     const emailExists = await User.findOne({ email: req.body.email });
     if (emailExists) {
-      return res.status(400).send('Email already in use');
+      errors.email = 'Email already in use';
+      return res.status(400).json(errors);
     }
     let image;
     if (req.body.image) {
