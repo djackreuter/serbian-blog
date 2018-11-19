@@ -5,6 +5,7 @@ const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const { uploadImage } = require('../../utils/uploadImage');
+const { validateRegisterInput } = require('../../validation/register');
 
 // TODO: Client side validation
 
@@ -14,7 +15,10 @@ const { uploadImage } = require('../../utils/uploadImage');
  * @access public
  */
 router.post('/register', async (req, res) => {
-  let errors = {};
+  const { errors, isValid } = validateRegisterInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   try {
     const emailExists = await User.findOne({ email: req.body.email });
     if (emailExists) {
