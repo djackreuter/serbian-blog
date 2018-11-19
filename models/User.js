@@ -10,7 +10,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: () => {
       return !!this.googleId;
-    }
+    },
+    minlength: 3
   },
   email: {
     type: String,
@@ -23,7 +24,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: () => {
       return !!this.googleId;
-    }
+    },
+    minlength: 6
   },
   bio: {
     type: String,
