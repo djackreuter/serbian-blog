@@ -58,7 +58,9 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg", {
+                      'is-invalid': errors.name
+                    })}
                     placeholder="Name"
                     name="name"
                     value={this.state.name}
@@ -80,7 +82,10 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className="form-control form-control-lg" placeholder="Password"
+                    className={classnames("form-control form-control-lg", {
+                      'is-invalid': errors.password
+                    })}
+                    placeholder="Password"
                     name="password"
                     value={this.state.password}
                     onChange={this.onChange}
@@ -89,7 +94,10 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className="form-control form-control-lg" placeholder="Confirm Password"
+                    className={classnames("form-control form-control-lg", {
+                      'is-invalid': errors.password2
+                    })}
+                    placeholder="Confirm Password"
                     name="password2"
                     value={this.state.password2}
                     onChange={this.onChange}
@@ -99,11 +107,15 @@ class Register extends Component {
                   <textarea
                     rows="3"
                     cols="33"
-                    className="form-control form-control-lg" placeholder="Bio"
+                    className={classnames("form-control form-control-lg", {
+                      'is-invalid': errors.bio
+                    })} 
+                    placeholder="Bio"
                     name="bio"
                     value={this.state.bio}
                     onChange={this.onChange}
-                  ></textarea>
+                  >
+                  </textarea>
                 </div>
                 <div className="form-group">
                   <input

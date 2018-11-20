@@ -6,7 +6,7 @@ export const registerUser = userData => dispatch => {
     .then(res => console.log(res))
     .catch(err => dispatch({
       type: GET_ERRORS,
-      payload: err
+      payload: err.response.data
     })
   );
 };
