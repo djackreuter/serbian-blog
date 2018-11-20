@@ -6,7 +6,8 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const { uploadImage } = require('../../utils/uploadImage');
 const { validateRegisterInput } = require('../../validation/register');
-
+const { validateLoginInput } = require('../../validation/login');
+ 
 // TODO: Client side validation
 
 /**
@@ -50,6 +51,10 @@ router.post('/register', async (req, res) => {
  * @access public
  */
 router.post('/login', async (req, res) => {
+  const { isValid, errors } = validateLoginInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   try {
     const { email, password } = _.pick(req.body, ['email', 'password']);
     let user = await User.findOne({ email });
