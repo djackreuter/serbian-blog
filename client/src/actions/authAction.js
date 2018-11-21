@@ -10,3 +10,13 @@ export const registerUser = userData => dispatch => {
     })
   );
 };
+
+export const loginUser = userData => dispatch => {
+  axios.post('/api/users/login', userData)
+    .then(res => console.log(res))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    })
+  );
+};
