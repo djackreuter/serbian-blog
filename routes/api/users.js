@@ -26,8 +26,8 @@ router.post('/register', async (req, res) => {
       errors.email = 'Email already in use';
       return res.status(400).json(errors);
     }
-    let image;
-    if (req.body.image) {
+    let image = '';
+    if (!_.isEmpty(req.body.image)) {
       image = JSON.stringify(await uploadImage(req.body.image));
     }
     const newUser = new User({
