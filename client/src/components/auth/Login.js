@@ -23,6 +23,13 @@ class Login extends Component {
     return null;
   }
 
+  componentDidUpdate(prevState) {
+    if (this.props.auth.isAuthenticated) {
+      this.setState({ isAuthenticated: this.props.auth.isAuthenticated });
+      this.props.history.push('/dashboard');
+    }
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
     const user = {
