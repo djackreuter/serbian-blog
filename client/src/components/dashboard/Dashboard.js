@@ -2,22 +2,52 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurrentUser } from '../../actions/userActions';
+import Spinner from '../common/spinner';
+import { Link } from 'react-router-dom';
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentUser();
   }
   render() {
+    const { user, loading } = this.props.user;
+    let dashboardContent;
+    if (user === null || loading) {
+      dashboardContent = <Spinner />
+    } else {
+      dashboardContent = (
+        <div>
+          <p className="lead text-muted">Welcome {user.name}</p>
+          <Link to="/manage-posts" className="btn btn-lg btn-info col-md-4" >
+            Manage Posts
+          </Link>
+          <Link to="/edit-profile" className="btn btn-lg btn-warning col-md-4" >
+            Edit Profile
+          </Link>
+        </div>
+      )
+    }
     return (
-      <div>
-        <h1>Dashboard</h1>
+      <div className="row">
+        <div className="col-md-12">
+          <h1 className="display-4">
+            {dashboardContent}
+          </h1>
+        </div>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  user: state.user
+})
+
 Dashboard.propTypes = {
-  getCurrentUser: PropTypes.func.isRequired
+  getCurrentUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 }
 
-export default connect(null, { getCurrentUser })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser })(Dashboard);
