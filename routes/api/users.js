@@ -59,7 +59,8 @@ router.post('/login', async (req, res) => {
     const { email, password } = _.pick(req.body, ['email', 'password']);
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).send('Email or password is incorrect');
+      errors.login = 'Email or password is incorrect';
+      return res.status(404).json(errors);
     }
     let correctPassword = await bcrypt.compare(password, user.password);
     if (correctPassword) {
@@ -68,7 +69,8 @@ router.post('/login', async (req, res) => {
         return res.json({ token: `Bearer ${token}` });
       }
     } else {
-      return res.status(400).send('Email or password is incorrect');
+      errors.login = 'Email or password is incorrect';
+      return res.status(400).json(errors);
     }
   } catch (err) {
     return res.status(400).json(err);

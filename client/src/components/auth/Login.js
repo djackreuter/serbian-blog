@@ -62,20 +62,22 @@ class Login extends Component {
                   <input
                     type="email"
                     className={classnames("form-control form-control-lg", {
-                      'is-invalid': errors.email
+                      'is-invalid': errors.email || errors.login
                     })}
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
                     onChange={this.onChange}
                   />
+                  {errors.login && <div className="invalid-feedback">
+                  {errors.login}</div>}
                   {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                 </div>
                 <div className="form-group">
                   <input
                     type="password"
                     className={classnames("form-control form-control-lg", {
-                      'is-invalid': errors.password
+                      'is-invalid': errors.password || errors.login
                     })}
                     placeholder="Password"
                     name="password"
