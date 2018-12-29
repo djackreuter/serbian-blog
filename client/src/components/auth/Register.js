@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { registerUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 
 class Register extends Component {
   constructor() {
@@ -104,24 +105,16 @@ class Register extends Component {
                   value={this.state.password2}
                   onChange={this.onChange}
                 />
-                <div className="form-group">
-                  <textarea
-                    rows="3"
-                    cols="33"
-                    className={classnames("form-control form-control-lg", {
-                      'is-invalid': errors.bio
-                    })} 
-                    placeholder="Bio"
-                    name="bio"
-                    value={this.state.bio}
-                    onChange={this.onChange}
-                  >
-                  </textarea>
-                  {errors.bio && <div className="invalid-feedback">{errors.bio}</div>}
-                </div>
+                <TextAreaFieldGroup 
+                  rows="3"
+                  cols="33"
+                  placeholder="Bio"
+                  name="bio"
+                  value={this.state.bio}
+                  onChange={this.onChange}
+                />
                 <TextFieldGroup 
                   type="text"
-                  className="form-control form-control-lg" placeholder="Location"
                   name="location"
                   value={this.state.location}
                   onChange={this.onChange}
