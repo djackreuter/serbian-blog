@@ -18,10 +18,12 @@ class Dashboard extends Component {
       dashboardContent = (
         <div>
           <p className="lead text-muted">Welcome {user.name}</p>
-          <Link to="/manage-posts" className="btn btn-lg btn-info col-md-4" >
+          <Link to="/manage-posts" className="btn btn-light col-md-4 mr-2" >
+            <i className="fas fa-edit text-info mr-1"></i>
             Manage Posts
           </Link>
-          <Link to="/edit-profile" className="btn btn-lg btn-warning col-md-4" >
+          <Link to="/edit-user" className="btn btn-light col-md-4 ml-2" >
+            <i className="fas fa-user-circle text-info mr-1"></i>
             Edit Profile
           </Link>
         </div>
