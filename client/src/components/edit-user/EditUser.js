@@ -27,14 +27,12 @@ class EditUser extends Component {
     this.props.getCurrentUser();
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (!_.isEmpty(nextProps.errors)) {
-      return {
-        errors: nextProps.errors
-      }
+  componentDidUpdate(prevProps) {
+    if (prevProps.errors !== this.props.errors) {
+      this.setState({ errors: this.props.errors });
     }
-    if (!_.isEmpty(nextProps.user.user)) {
-      const user = nextProps.user.user;
+    if (prevProps.user.user) {
+      const user = this.props.user.user;
       user.name = !_.isEmpty(user.name) ? user.name : '';
       user.email = !_.isEmpty(user.email) ? user.email : '';
       user.password = '';
@@ -43,17 +41,18 @@ class EditUser extends Component {
       user.location = !_.isEmpty(user.location) ? user.location : '';
       user.image = !_.isEmpty(user.image) ? user.image : '';
 
-      return {
-        name: user.name,
-        email: user.email,
-        password: user.password,
-        password2: user.password2,
-        bio: user.bio,
-        location: user.location,
-        image: user.image
+      if (prevProps.user !== this.props.user) {
+        this.setState({
+          name: user.name,
+          email: user.email,
+          password: user.password,
+          password2: user.password2,
+          bio: user.bio,
+          location: user.location,
+          image: user.image
+        })
       }
     }
-    return null;
   }
 
   onChange = (e) => {
