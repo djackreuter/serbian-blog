@@ -17,6 +17,7 @@ import { clearCurrentUser } from './actions/userActions';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
+import EditUser from './components/edit-user/EditUser';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -43,6 +44,9 @@ class App extends Component {
               <Route exact path="/login" component={ Login } />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={ Dashboard } />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/edit-user" component={ EditUser } />
               </Switch>
             </div>
             <Footer />
