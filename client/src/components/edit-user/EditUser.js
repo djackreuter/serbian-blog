@@ -39,7 +39,7 @@ class EditUser extends Component {
       user.password2 = '';
       user.bio = !_.isEmpty(user.bio) ? user.bio : '';
       user.location = !_.isEmpty(user.location) ? user.location : '';
-      user.image = !_.isEmpty(user.image) ? user.image : '';
+      user.image = '';
 
       if (prevProps.user !== this.props.user) {
         this.setState({
