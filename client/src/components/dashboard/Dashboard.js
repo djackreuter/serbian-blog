@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurrentUser } from '../../actions/userActions';
 import Spinner from '../common/spinner';
-import { Link } from 'react-router-dom';
 import UserActions from './UserActions';
+import UserInfo from './UserInfo';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -20,6 +20,7 @@ class Dashboard extends Component {
         <div>
           <p className="lead text-muted">Welcome {user.name}</p>
           <UserActions />
+          <UserInfo user={user} />
         </div>
       )
     }
@@ -27,8 +28,9 @@ class Dashboard extends Component {
       <div className="row">
         <div className="col-md-12">
           <h1 className="display-4">
-            {dashboardContent}
+            Dashboard
           </h1>
+            {dashboardContent}
         </div>
       </div>
     )
