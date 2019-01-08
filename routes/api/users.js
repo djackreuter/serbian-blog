@@ -115,6 +115,7 @@ router.get('/', passport.authenticate('jwt', { session: false }),
       if (!user) {
         return res.status(404).send('User does not exist');
       }
+      user.image = JSON.parse(user.image).url;
       return res.send(user);
     }).catch((err) => res.status(400).send(err));
 });
