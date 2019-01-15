@@ -13,7 +13,7 @@ const app = express();
 
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }));
 
 mongoose.connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB connected'))
