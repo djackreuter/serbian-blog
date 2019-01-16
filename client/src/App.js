@@ -9,6 +9,7 @@ import Footer from './components/layout/Footer';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
+import Posts from './components/posts/Posts';
 import PrivateRoute from './components/common/PrivateRoute';
 
 import jwt_decode from 'jwt-decode';
@@ -42,6 +43,7 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={ Register } />
               <Route exact path="/login" component={ Login } />
+              <Route exact path="/add-post" component={ Posts } />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={ Dashboard } />
               </Switch>
