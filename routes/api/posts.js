@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const { Post } = require('../../models/Post');
 const { uploadImage } = require('../../utils/uploadImage');
+const { validatePostInput } = require('../../validation/post');
 
 /**
  * @route  GET api/posts/
@@ -49,6 +50,10 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/', passport.authenticate('jwt', { session: false }), 
   async (req, res) => {
+    const { errors, isValid } = validatePostInput(req.body);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
     try {
       let image;
       if (req.body.image) {
