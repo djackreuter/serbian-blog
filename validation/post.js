@@ -9,7 +9,7 @@ const validatePostInput = (data) => {
   if (validator.isEmpty(data.title)) {
     errors.title = 'Title field is required';
   }
-  if (validator.isEmpty(data.body) || validator.isLength(data.body, {min: 3})) {
+  if (validator.isEmpty(data.body)) {
     errors.body = 'Body is not valid';
   }
   return {
