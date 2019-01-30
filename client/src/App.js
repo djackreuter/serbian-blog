@@ -10,6 +10,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import Posts from './components/posts/Posts';
+import Post from './components/post/Post';
 import PrivateRoute from './components/common/PrivateRoute';
 
 import jwt_decode from 'jwt-decode';
@@ -44,11 +45,17 @@ class App extends Component {
               <Route exact path="/register" component={ Register } />
               <Route exact path="/login" component={ Login } />
               <Route exact path="/add-post" component={ Posts } />
+              <Route exact path="/feed" component={ Posts } />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={ Dashboard } />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/edit-user" component={ EditUser } />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/post/:id" component={ 
+                  Post
+                 } />
               </Switch>
             </div>
             <Footer />
