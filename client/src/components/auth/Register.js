@@ -115,6 +115,7 @@ class Register extends Component {
                 <TextFieldGroup 
                   type="text"
                   name="location"
+                  placeholder="Location"
                   value={this.state.location}
                   onChange={this.onChange}
                 />
