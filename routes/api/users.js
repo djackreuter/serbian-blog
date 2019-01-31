@@ -8,8 +8,6 @@ const { uploadImage } = require('../../utils/uploadImage');
 const { validateRegisterInput } = require('../../validation/register');
 const { validateLoginInput } = require('../../validation/login');
  
-// TODO: Client side validation
-
 /**
  * @route  POST api/users/register
  * @desc   Register a new user
@@ -28,7 +26,7 @@ router.post('/register', async (req, res) => {
     }
     let image = '';
     if (!_.isEmpty(req.body.image)) {
-      image = JSON.stringify(await uploadImage(req.body.image));
+      image = await uploadImage(req.body.image);
     }
     const newUser = new User({
       name: req.body.name,
@@ -115,7 +113,6 @@ router.get('/', passport.authenticate('jwt', { session: false }),
       if (!user) {
         return res.status(404).send('User does not exist');
       }
-      user.image = JSON.parse(user.image).url;
       return res.send(user);
     }).catch((err) => res.status(400).send(err));
 });
@@ -137,12 +134,7 @@ router.patch('/', passport.authenticate('jwt', { session: false }),
         if (req.body.password) user.password = req.body.password;
         if (req.body.bio) user.bio = req.body.bio;
         if (req.body.location) user.location = req.body.location;
-        if (req.body.image) {
-          uploadImage(req.body.image).then((image) => {
-            JSON.stringify(image);
-            user.image = image;
-          });
-        }
+        if (req.body.image) user.image = await uploadImage(req.body.image);
         const updatedUser = await user.save();
         return res.json(updatedUser);
     } catch (err) {

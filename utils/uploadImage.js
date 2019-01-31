@@ -8,7 +8,7 @@ const uploadImage = (image) => {
         if (error) {
           reject(error);
         }
-        resolve(result);
+        resolve(result.url);
     });
   }); 
 };

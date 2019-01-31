@@ -57,7 +57,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     try {
       let image;
       if (req.body.image) {
-        image = JSON.stringify(await uploadImage(req.body.image));
+        image = await uploadImage(req.body.image);
       }
       const newPost = new Post({
         title: req.body.title,
@@ -85,6 +85,30 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
     } catch (err) {
       return res.status(400).json(err);
     }
+});
+
+/**
+ * @route  POST api/posts/like/:id
+ * @desc   like post
+ * @access private
+ */
+router.post('/like/:postId', passport.authenticate('jwt', { session: false }), 
+  (req, res) => {
+    const { postId } = req.params;
+    Post.findById(postId, (error, post) => {
+      if (!post || error) {
+        return res.status(404).json({error, msg: 'Post not found'});
+      }
+      const index = post.likes.findIndex((value) => value.user == req.user.id);
+      if (index === -1) {
+        post.likes.push({ user: req.user.id });
+      } else {
+        post.likes.splice(index, 1);
+      }
+      post.save().then((savedPost) => {
+        return res.json(savedPost);
+      });
+    });
 });
 
 /**

@@ -60,7 +60,7 @@ UserSchema.methods.generateAuthToken = function() {
     let payload = {
       id: this._id,
       name: this.name,
-      image: JSON.parse(this.image).url
+      image: this.image
     };
     jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, 
     (err, token) => {
