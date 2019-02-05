@@ -14,8 +14,10 @@ class Posts extends Component {
   render() {
     const { posts, loading } = this.props.post;
     let postContent;
-    if (posts == null || loading) {
+    if (posts === null || loading) {
       postContent = <Spinner />
+    } else if (posts.length === 0) {
+      postContent = 'There are no posts to show...'
     } else {
       postContent = <PostFeed posts={posts} />
     }
@@ -23,7 +25,6 @@ class Posts extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <PostForm />
             {postContent}
           </div>
         </div> 
