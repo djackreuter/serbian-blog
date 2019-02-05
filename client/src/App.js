@@ -20,6 +20,7 @@ import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
 import EditUser from './components/edit-user/EditUser';
+import PostForm from './components/posts/PostForm';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -44,8 +45,9 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={ Register } />
               <Route exact path="/login" component={ Login } />
-              <Route exact path="/add-post" component={ Posts } />
-              <Route exact path="/feed" component={ Posts } />
+              <Route exact path="/add-post" component={ PostForm } />
+              <Route exact path="/posts" component={ Posts } />
+              <Route exact path="/manage-posts" component={ Posts } />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={ Dashboard } />
               </Switch>
