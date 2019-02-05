@@ -27,16 +27,25 @@ class PostItem extends Component {
   render() {
     const { post, auth, showActions } = this.props;
     return (
-      <div className="card card-body mb-3">
+      <div className="card card-body mt-4">
         <div className="row">
           <div className="col-md-2">
             <br />
-            <p className="text-center">{post.title}</p>
+            <p className="lead">{post.title}</p>
           </div>
-          <div className="col-md-10">
-            <p className="lead">{post.body}</p>
+        </div>
+        <div className="row">
+          {post.image ? (<img src={post.image} alt="" />) : null}
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <p className="text-left">{post.body}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-4">
             {showActions ? (
-              <span>
+              <span className="text-center">
                 <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
                   <i className={classnames('fas fa-thumbs-up', {
                 'text-info': this.findUserLike(post.likes)
@@ -44,7 +53,7 @@ class PostItem extends Component {
                   <span className="badge badge-light">{post.likes.length}</span>
                 </button>
                 <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
-                  Comments
+                  View Post
                 </Link>
                 {post.author === auth.user.id ? (
                 <button onClick={this.onDeleteClick.bind(this, post._id)} type="button" className="btn btn-danger mr-1" >
