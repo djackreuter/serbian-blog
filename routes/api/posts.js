@@ -93,22 +93,24 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
  * @access private
  */
 router.post('/like/:postId', passport.authenticate('jwt', { session: false }), 
-  (req, res) => {
-    const { postId } = req.params;
-    Post.findById(postId, (error, post) => {
-      if (!post || error) {
-        return res.status(404).json({error, msg: 'Post not found'});
+  async (req, res) => {
+    try {
+      const { postId } = req.params;
+      const post = await Post.findById(postId);
+      if (!post) {
+        return res.status(404).json({msg: 'Post not found'});
       }
       const index = post.likes.findIndex((value) => value.user == req.user.id);
       if (index === -1) {
         post.likes.push({ user: req.user.id });
-      } else {
-        post.likes.splice(index, 1);
-      }
-      post.save().then((savedPost) => {
-        return res.json(savedPost);
-      });
-    });
+        } else {
+          post.likes.splice(index, 1);
+        }
+      const savedPost = await post.save();
+      return res.json(savedPost);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
 });
 
 /**
