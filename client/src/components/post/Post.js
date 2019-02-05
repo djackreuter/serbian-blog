@@ -12,7 +12,7 @@ class Post extends Component {
   }
 
   render() {
-    const { post, loading } = this.props;
+    const { post, loading } = this.props.post;
     let postContent;
     if (post === null || loading || Object.keys(post).length === 0) {
       postContent = <Spinner />
@@ -28,8 +28,8 @@ class Post extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <Link to="/feed" className="btn btn-light mb-3">
-                Back To Feed
+              <Link to="/posts" className="btn btn-light mb-3">
+                Back To Posts
               </Link>
               {postContent}
             </div>
