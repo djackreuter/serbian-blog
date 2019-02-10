@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, SET_GOOGLE_USER, CLEAR_GOOGLE_USER } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
@@ -28,6 +28,25 @@ export const loginUser = userData => dispatch => {
     })
   );
 };
+
+export const setGoogleUser = token => {
+  localStorage.setItem('googleToken', token);
+  setAuthToken(token);
+  const decoded = jwt_decode(token);
+  return {
+    type: SET_GOOGLE_USER,
+    payload: decoded
+  }
+}
+
+export const clearGoogleUser = () => {
+  localStorage.removeItem('googleToken');
+  setAuthToken(false);
+  return {
+    type: CLEAR_GOOGLE_USER,
+    payload: {}
+  }
+}
 
 export const setCurrentUser = (decoded) => {
   return {
