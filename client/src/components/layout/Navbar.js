@@ -60,7 +60,7 @@ class Navbar extends Component {
               <Link className="nav-link" to="/about">About</Link>
             </li>
           </ul>
-          {isAuthenticated ? authLinks : guestLinks}
+          {isAuthenticated && Object.keys(user).length > 0 ? authLinks : guestLinks}
         </div>
       </nav>
     )
