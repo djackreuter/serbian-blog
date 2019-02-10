@@ -124,7 +124,8 @@ router.post('/:id/comment', passport.authenticate('jwt', { session: false }),
     const post = await Post.findById(req.params.id).populate('author', 'name');
     const comment = {
       text: req.body.text,
-      name: req.user.name
+      name: req.body.name,
+      image: req.body.picture
     };
     post.comments.unshift(comment);
     savedPost = await post.save();
