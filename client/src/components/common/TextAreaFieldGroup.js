@@ -9,6 +9,7 @@ const TextAreaFieldGroup = ({
   placeholder,
   error,
   value,
+  disabled,
   onChange
 }) => {
   return (
@@ -22,6 +23,7 @@ const TextAreaFieldGroup = ({
         placeholder={placeholder}
         name={name}
         value={value}
+        disabled={disabled}
         onChange={onChange}
       >
       </textarea>
@@ -37,6 +39,7 @@ TextAreaFieldGroup.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
   error: PropTypes.string
 }
 
