@@ -34,7 +34,8 @@ router.post('/register', async (req, res) => {
       password: req.body.password,
       bio: req.body.bio,
       location: req.body.location,
-      image
+      image,
+      admin: true
     });
     const user = await newUser.save();
     return res.send(user);
@@ -76,31 +77,31 @@ router.post('/login', async (req, res) => {
 });
 
 /**
- * @route  GET api/users/auth/google
- * @desc   Login a user via google
+ * @route post api/users/google
+ * @desc Find or create google user
  * @access public
  */
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
-
-  /**
- * @route  GET api/users/auth/google/callback
- * @desc   redirect user after google auth
- * @access public
- */
-router.get('/auth/google/callback',
-  passport.authenticate('google', { session: false, failureRedirect: '/' }),
-  async (req, res) => {
-    try {
-      const token = await req.user.generateAuthToken();
-      if (token) {
-        return res.json({ token: `Bearer ${token}` });
-      }
-    } catch (err) {
-      return res.status(400).json({error: 'Could not authenticate', err});
+router.post('/google', async (req, res) => {
+  const { googleId, name, email, imageUrl } = req.body;
+  try {
+    const user = await User.findOne({ googleId });
+    if (user) {
+      const token = await user.generateAuthToken();
+      return res.json({ token: `Bearer ${token}` });
     }
-  });
-
+    const newUser = new User({
+      googleId,
+      name,
+      email,
+      image: imageUrl
+    });
+    const googleUser = await newUser.save();
+    const token = await googleUser.generateAuthToken();
+    return res.json({ token: `Bearer ${token}` });
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+});
 
 /**
  * @route  GET api/users
