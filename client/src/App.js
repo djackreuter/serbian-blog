@@ -21,6 +21,7 @@ import setAuthToken from './utils/setAuthToken';
 import './App.css';
 import EditUser from './components/edit-user/EditUser';
 import PostForm from './components/posts/PostForm';
+import NotFound from './components/not-found/NotFound';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -55,6 +56,7 @@ class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/edit-user" component={ EditUser } />
               </Switch>
+              <Route exact path="/not-found" component={ NotFound } />
             </div>
             <Footer />
           </div>
