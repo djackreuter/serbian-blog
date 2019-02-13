@@ -8,17 +8,13 @@ const UserSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: () => {
-      return !!this.googleId;
-    },
+    required: true,
     minlength: 3
   },
   email: {
     type: String,
     unique: true,
-    required: () => {
-      return !!this.googleId;
-    }
+    required: true
   },
   password: {
     type: String,
@@ -39,6 +35,11 @@ const UserSchema = new mongoose.Schema({
   },
   image: {
     type: String
+  },
+  admin: {
+    type: Boolean,
+    required: true,
+    default: false
   }
 });
 
@@ -58,9 +59,10 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.generateAuthToken = function() {
   return new Promise((resolve, reject) => {
     let payload = {
-      id: this._id,
+      id: this._id || this.googleId,
       name: this.name,
-      image: this.image
+      image: this.image || this.imageUrl,
+      admin: this.admin
     };
     jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, 
     (err, token) => {
