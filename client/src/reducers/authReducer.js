@@ -1,10 +1,10 @@
-import { SET_CURRENT_USER, SET_GOOGLE_USER, CLEAR_GOOGLE_USER } from '../actions/types';
+import { SET_CURRENT_USER } from '../actions/types';
 import _ from 'lodash';
 
 const initialState = {
   isAuthenticated: false,
-  user: {},
-  googleUser: {}
+  isAdmin: false,
+  user: {}
 };
 
 export default function(state = initialState, action) {
@@ -12,20 +12,9 @@ export default function(state = initialState, action) {
     case SET_CURRENT_USER:
       return {
         ...state,
+        isAdmin: action.payload.admin,
         isAuthenticated: !_.isEmpty(action.payload),
         user: action.payload
-      }
-    case SET_GOOGLE_USER:
-      return {
-        ...state,
-        isAuthenticated: !_.isEmpty(action.payload),
-        googleUser: action.payload
-      }
-    case CLEAR_GOOGLE_USER:
-      return {
-        ...state,
-        isAuthenticated: false,
-        googleUser: {}
       }
     default:
       return state;
