@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addComment } from '../../actions/postActions';
 import GoogleLogin from 'react-google-login';
+import { setGoogleUser } from '../../actions/authActions';
 
 class CommentForm extends Component {
   constructor(props) {
@@ -101,7 +102,8 @@ CommentForm.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
-  addComment: PropTypes.func.isRequired
+  addComment: PropTypes.func.isRequired,
+  setGoogleUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -109,4 +111,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addComment })(withRouter(CommentForm));
+export default connect(mapStateToProps, { addComment, setGoogleUser })(withRouter(CommentForm));
