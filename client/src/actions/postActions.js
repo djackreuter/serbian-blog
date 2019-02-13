@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { ADD_POST, GET_ERRORS, GET_POSTS, POST_LOADING, DELETE_POST, GET_POST, ADD_COMMENT } from './types';
+import { GET_ERRORS, GET_POSTS, POST_LOADING, DELETE_POST, GET_POST } from './types';
 
 export const addPost = (postData, history) => dispatch => {
   axios.post('/api/posts', postData)
-    .then(res => history.push(`/post/${res.data._id}`))
+  .then(res => history.push(`/post/${res.data._id}`))
     .catch(err => 
       dispatch({
         type: GET_ERRORS,

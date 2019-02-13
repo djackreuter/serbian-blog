@@ -44,22 +44,22 @@ class PostItem extends Component {
         </div>
         <div className="row">
           <div className="col-md-4">
+            <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
+              <i className={classnames('fas fa-thumbs-up', {
+            'text-info': this.findUserLike(post.likes)
+              })}></i>
+              <span className="badge badge-light">{post.likes.length}</span>
+            </button>
             {showActions ? (
               <span className="text-center">
-                <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
-                  <i className={classnames('fas fa-thumbs-up', {
-                'text-info': this.findUserLike(post.likes)
-                  })}></i>
-                  <span className="badge badge-light">{post.likes.length}</span>
-                </button>
                 <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
                   View Post
                 </Link>
-                {post.author === auth.user.id ? (
+                {post.author._id === auth.user.id ? (
                 <button onClick={this.onDeleteClick.bind(this, post._id)} type="button" className="btn btn-danger mr-1" >
                   <i className="fa fa-times" />
                 </button>
-              ) : null}
+                ) : null}
             </span>) : null}
           </div>
         </div>

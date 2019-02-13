@@ -125,7 +125,7 @@ router.post('/:id/comment', passport.authenticate('jwt', { session: false }),
     const comment = {
       text: req.body.text,
       name: req.body.name,
-      image: req.body.picture
+      image: req.body.image
     };
     post.comments.unshift(comment);
     savedPost = await post.save();
