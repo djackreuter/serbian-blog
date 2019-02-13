@@ -14,7 +14,7 @@ import Post from './components/post/Post';
 import PrivateRoute from './components/common/PrivateRoute';
 
 import jwt_decode from 'jwt-decode';
-import { setCurrentUser, logoutUser, setGoogleUser, clearGoogleUser } from './actions/authActions';
+import { setCurrentUser, logoutUser } from './actions/authActions';
 import { clearCurrentUser } from './actions/userActions';
 import setAuthToken from './utils/setAuthToken';
 
@@ -31,17 +31,6 @@ if (localStorage.jwtToken) {
     store.dispatch(clearCurrentUser())
     store.dispatch(logoutUser());
     window.location.href = '/login';
-  }
-}
-
-if (localStorage.googleToken) {
-  setAuthToken(localStorage.googleToken);
-  store.dispatch(setGoogleUser(localStorage.googleToken));
-  const decoded = jwt_decode(localStorage.googleToken);
-  const currentTime = Date.now() / 1000;
-  console.log('current time', new Date(currentTime), 'exp', new Date(decoded.exp))
-  if (decoded.exp < currentTime) {
-    store.dispatch(clearGoogleUser());
   }
 }
 
