@@ -15,7 +15,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
+    if (this.props.auth.isAuthenticated && this.props.auth.isAdmin) {
       this.props.history.push('/dashboard');
     }
   }
