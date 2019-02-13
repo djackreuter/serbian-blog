@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addComment } from '../../actions/postActions';
-import { setGoogleUser } from '../../actions/authActions';
 import GoogleLogin from 'react-google-login';
 
 class CommentForm extends Component {
@@ -16,6 +15,10 @@ class CommentForm extends Component {
       errors: {}
     }
 
+  }
+
+  componentDidMount() {
+    this.setState({ disabled: !this.props.auth.isAuthenticated });
   }
 
   componentDidUpdate(prevProps) {
@@ -33,11 +36,11 @@ class CommentForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { googleUser: { name, picture } } = this.props.auth;
+    const { googleUser: { name, image } } = this.props.auth;
     const newComment = {
       text: this.state.text,
       name,
-      picture
+      image
     }
     this.props.addComment(newComment, this.props.postId, this.props.history);
     this.setState({ text: '', errors: '' });
@@ -45,13 +48,12 @@ class CommentForm extends Component {
 
   responseGoogle = (response) => {
     console.log(response);
-    this.props.setGoogleUser(response.tokenId)
+    this.props.setGoogleUser(response.profileObj);
   }
 
   render() {
     const { errors } = this.state;
-    const { googleUser, isAuthenticated } = this.props.auth;
-    console.log(this.props.auth);
+    const { isAuthenticated } = this.props.auth;
     let googleContent;
     if (isAuthenticated) {
       googleContent = null;
@@ -86,7 +88,7 @@ class CommentForm extends Component {
                 />
               </div>
               {googleContent}
-              {Object.keys(googleUser).length > 0 ? (<button type="submit" className="btn btn-dark">Comment</button>) : null}
+              {isAuthenticated ? (<button type="submit" className="btn btn-dark">Comment</button>) : null}
             </form>
           </div>
         </div>
@@ -99,8 +101,7 @@ CommentForm.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
-  addComment: PropTypes.func.isRequired,
-  setGoogleUser: PropTypes.func.isRequired
+  addComment: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -108,4 +109,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addComment, setGoogleUser })(withRouter(CommentForm));
+export default connect(mapStateToProps, { addComment })(withRouter(CommentForm));
