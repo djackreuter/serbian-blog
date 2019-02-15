@@ -143,7 +143,7 @@ router.post('/:id/comment', passport.authenticate('jwt', { session: false }),
 router.delete('/:id/comment/:commentId', passport.authenticate('jwt', { session: false }), (req, res) => {
   Post.findById(req.params.id).then((post) => {
     const commentToDelete = post.comments.find((comment) => comment._id == req.params.commentId);
-    if (req.user.id != commentToDelete.user) {
+    if (req.user.admin !== true) {
       return res.status(401).json({cannotdelete: 'You don\'t have permission to delete this comment'});
     }
     if (post.comments.filter((comment) => comment._id == req.params.commentId).length === 0) {
