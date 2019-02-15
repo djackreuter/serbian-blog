@@ -15,11 +15,19 @@ class CommentItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-2">
-            <p className="text-center">{comment.name}</p>
+            <img 
+              src={comment.image} 
+              className="rounded-circle mb-1" 
+              alt={comment.name}
+              style={{width: '5rem'}} 
+            />
+            <p className="text-center mb-1">{comment.name}</p>
           </div>
-          <div className="col-md-10">
-            <p className="lead">{comment.text}</p>
-            {comment.user === auth.user.id ? (
+          <div className="col-md-9">
+            <p className="lead text-left">{comment.text}</p>
+          </div>
+          <div className="col-md-1">
+            {auth.user.admin ? (
               <button onClick={this.onDeleteClick.bind(this, postId, comment._id)} type="button" className="btn btn-danger mr-1" >
               <i className="fa fa-times" />
               </button>
