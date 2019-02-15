@@ -37,7 +37,7 @@ class CommentForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { googleUser: { name, image } } = this.props.auth;
+    const { user: { name, image } } = this.props.auth;
     const newComment = {
       text: this.state.text,
       name,
