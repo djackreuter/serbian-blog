@@ -29,21 +29,21 @@ class PostItem extends Component {
     return (
       <div className="card card-body mt-4">
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-12">
             <br />
-            <p className="lead">{post.title}</p>
+            <p className="lead"><strong>{post.title}</strong></p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <p className="text-justify">{post.body}</p>
           </div>
         </div>
         <div className="row">
           {post.image ? (<img src={post.image} alt="" />) : null}
         </div>
         <div className="row">
-          <div className="col-md-12">
-            <p className="text-left">{post.body}</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 mt-4">
           {showActions ? (
             <span>
               <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
