@@ -13,7 +13,9 @@ const { validatePostInput } = require('../../validation/post');
 router.get('/', async (req, res) => {
   let errors = {};
   try {
-    const posts = await Post.find().populate('author', 'name');
+    const posts = await Post.find()
+      .populate('author', 'name')
+      .sort({ date: 'desc' });
     if (!posts) {
       errors.noposts = 'There are currently no posts';
       return res.status(404).json(errors);
