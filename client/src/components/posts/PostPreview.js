@@ -25,11 +25,12 @@ class PostPreview extends Component {
 
   render() {
     const { post, auth } = this.props;
+    const postDate = new Date(post.date);
     return (
-      <div className="card card-body mt-4">
+      <div className="card card-body mt-5">
         <div className="row">
           <div className="col-md-12">
-            <br />
+            <p className="text-left">{postDate.toDateString()}</p>
             <p className="lead"><strong>{post.title}</strong></p>
           </div>
         </div>

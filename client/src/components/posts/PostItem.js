@@ -26,21 +26,22 @@ class PostItem extends Component {
 
   render() {
     const { post, auth, showActions } = this.props;
+    const postDate = new Date(post.date);
     return (
       <div className="card card-body mt-4">
         <div className="row">
           <div className="col-md-12">
-            <br />
-            <p className="lead"><strong>{post.title}</strong></p>
+            <p className="text-left">{postDate.toDateString()}</p>
+            <h2 className="display-4">{post.title}</h2>
           </div>
+        </div>
+        <div className="row">
+          {post.image ? (<img src={post.image} className="img-fluid my-4 mx-auto" style={{height: '50vh'}} alt="" />) : null}
         </div>
         <div className="row">
           <div className="col-md-12">
-            <p className="text-justify">{post.body}</p>
+            <p className="text-left">{post.body}</p>
           </div>
-        </div>
-        <div className="row">
-          {post.image ? (<img src={post.image} alt="" />) : null}
         </div>
         <div className="row">
           <div className="col-md-4 mt-4">
