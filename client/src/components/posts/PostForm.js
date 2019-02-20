@@ -57,7 +57,7 @@ class PostForm extends Component {
       <div className="post-form mb-3">
         <div className="card card-info">
           <div className="card-header bg-info text-white">
-            Say Something...
+            New Post
           </div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
@@ -77,6 +77,7 @@ class PostForm extends Component {
                   value={this.state.body}
                   onChange={this.onChange}
                   error={errors.body}
+                  id="postFormArea"
                 />
               </div>
               <div className="form-group">
