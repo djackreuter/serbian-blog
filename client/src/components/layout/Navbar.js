@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentUser } from '../../actions/userActions';
+import avatar from '../common/empty-avatar.png';
 
 class Navbar extends Component {
   onLogoutClick = (e) => {
@@ -24,9 +25,13 @@ class Navbar extends Component {
             onClick={this.onLogoutClick}
             className="nav-link btn btn-link"
           >
-          <img 
+          {user.image ? (<img 
             src={user.image} className="rounded-circle" alt={user.name}
-            style={{width: '25px', marginRight: '5px'}}/>
+            style={{width: '25px', marginRight: '5px'}}/>) : (
+              <img src={avatar} alt='' className="rounded-circle" 
+              style={{width: '25px', marginRight: '5px'}} />
+            )}
+          
           Logout
           </button>
         </li>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import avatar from '../common/empty-avatar.png';
 
 class UserInfo extends Component {
   render() {
@@ -8,7 +9,8 @@ class UserInfo extends Component {
       <div className="col-md-6">
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
-            <img style={{width: '10rem'}} src={user.image} alt={user.name} />
+            {user.image ? (<img style={{width: '10rem'}} src={user.image} alt={user.name} />) : (<img style={{width: '10rem'}} src={avatar} alt='' />)}
+            
           </li>
           <li className="list-group-item">
             <i className="fas fa-user text-info mr-1"></i>
