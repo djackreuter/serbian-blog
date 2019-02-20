@@ -8,6 +8,7 @@ const TextAreaFieldGroup = ({
   name,
   placeholder,
   error,
+  id,
   value,
   disabled,
   onChange
@@ -25,6 +26,7 @@ const TextAreaFieldGroup = ({
         value={value}
         disabled={disabled}
         onChange={onChange}
+        id={id}
       >
       </textarea>
       {error && <div className="invalid-feedback">{error}</div>}
@@ -40,6 +42,7 @@ TextAreaFieldGroup.propTypes = {
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
+  id: PropTypes.string,
   error: PropTypes.string
 }
 
