@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema({
     required: () => {
       return !!this.googleId;
     },
-    maxlength: 1000
+    maxlength: 2000
   },
   location: {
     type: String

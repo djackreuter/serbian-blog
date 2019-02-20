@@ -15,6 +15,7 @@ const { validateLoginInput } = require('../../validation/login');
  */
 router.post('/register', async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
+  const accessCode = process.env.ACCESS_CODE;
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -22,6 +23,10 @@ router.post('/register', async (req, res) => {
     const emailExists = await User.findOne({ email: req.body.email });
     if (emailExists) {
       errors.email = 'Email already in use';
+      return res.status(400).json(errors);
+    }
+    if (req.body.accessCode !== accessCode) {
+      errors.accessCode = 'Access Code is incorrect';
       return res.status(400).json(errors);
     }
     let image = '';
@@ -116,6 +121,23 @@ router.get('/', passport.authenticate('jwt', { session: false }),
       }
       return res.send(user);
     }).catch((err) => res.status(400).send(err));
+});
+
+/**
+ * @route GET api/users/admin
+ * @desc get admin user info
+ * @access public
+ */
+router.get('/admin', async (req, res) => {
+  try {
+    const adminUser = await User.findOne({ admin: true }, 'name bio location image');
+    if (!adminUser) {
+      return res.status(404).json({ error: 'No user found' });
+    }
+    return res.send(adminUser);
+  } catch(err) {
+    return res.status(400).json(err);
+  }
 });
 
 /**

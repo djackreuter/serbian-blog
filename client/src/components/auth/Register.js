@@ -14,6 +14,7 @@ class Register extends Component {
       email: '',
       password: '',
       password2: '',
+      accessCode: '',
       bio: '',
       location: '',
       image: '',
@@ -56,6 +57,7 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2,
+      accessCode: this.state.accessCode,
       bio: this.state.bio,
       location: this.state.location,
       image: this.state.image
@@ -104,12 +106,21 @@ class Register extends Component {
                   value={this.state.password2}
                   onChange={this.onChange}
                 />
+                <TextFieldGroup 
+                type="text"
+                error={errors.accessCode}
+                placeholder="Access Code"
+                name="accessCode"
+                value={this.state.accessCode}
+                onChange={this.onChange}
+              />
                 <TextAreaFieldGroup 
                   rows="3"
                   cols="33"
                   placeholder="Bio"
                   name="bio"
                   value={this.state.bio}
+                  error={errors.bio}
                   onChange={this.onChange}
                 />
                 <TextFieldGroup 

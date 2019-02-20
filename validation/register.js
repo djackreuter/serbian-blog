@@ -7,6 +7,7 @@ const validateRegisterInput = (data) => {
   data.email = !_.isEmpty(data.email) ? data.email : '';
   data.password = !_.isEmpty(data.password) ? data.password : ''; 
   data.password2 = !_.isEmpty(data.password2) ? data.password2 : '';
+  data.accessCode = !_.isEmpty(data.accessCode) ? data.accessCode : '';
   data.bio = !_.isEmpty(data.bio) ? data.bio : '';
 
   if (validator.isEmpty(data.name) || 
@@ -24,8 +25,14 @@ const validateRegisterInput = (data) => {
     !validator.equals(data.password, data.password2)) {
       errors.password2 = 'Password confirmation is not valid';
     }
+  if (validator.isEmpty(data.accessCode)) {
+    errors.accessCode = 'Access Code is required';
+  }
   if (validator.isEmpty(data.bio)) {
     errors.bio = 'Bio is required';
+  }
+  if (!validator.isLength(data.bio, {max: 2000})) {
+    errors.bio = 'Bio is too long. 2000 characters max.';
   }
   return {
     errors,
