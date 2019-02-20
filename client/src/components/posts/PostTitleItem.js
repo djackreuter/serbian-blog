@@ -10,27 +10,18 @@ class PostTitleItem extends Component {
     this.props.deletePost(id);
   }
 
-  findUserLike(likes) {
-    const { auth } = this.props;
-    if (likes.filter(like => like.user === auth.user.id).length > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   render() {
     const { post, auth } = this.props;
     return (
-      <div className="card card-body mt-4">
+      <div className="card card-body mb-3">
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-12">
             <br />
             <p className="lead">{post.title}</p>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-12">
             <span>
               <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
                 View Post
@@ -46,10 +37,6 @@ class PostTitleItem extends Component {
       </div>
     )
   }
-}
-
-PostTitleItem.defaultProps = {
-  showActions: true
 }
 
 PostTitleItem.propTypes = {
