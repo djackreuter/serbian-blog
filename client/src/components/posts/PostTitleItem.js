@@ -10,6 +10,10 @@ class PostTitleItem extends Component {
     this.props.deletePost(id);
   }
 
+  closeModal() {
+    document.getElementById('exampleModal').modal('hide');
+  }
+
   render() {
     const { post, auth } = this.props;
     return (
@@ -23,7 +27,7 @@ class PostTitleItem extends Component {
         <div className="row">
           <div className="col-md-12">
             <span>
-              <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
+              <Link to={`/post/${post._id}`} onClick={this.closeModal.bind(this)} className="btn btn-info mr-1">
                 View Post
               </Link>
               {post.author._id === auth.user.id ? (
