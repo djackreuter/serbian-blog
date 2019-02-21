@@ -65,7 +65,7 @@ export const deletePost = id => dispatch => {
 export const addLike = id => dispatch => {
   axios.post(`/api/posts/like/${id}`)
     .then(res => 
-      dispatch(getPosts())
+      dispatch(getPost(id))
     )
     .catch(err => 
       dispatch({
