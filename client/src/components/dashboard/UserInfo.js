@@ -9,7 +9,7 @@ class UserInfo extends Component {
       <div className="col-md-6">
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
-            {user.image ? (<img style={{width: '15rem'}} src={user.image} className="rounded-circle" alt={user.name} />) : (<img style={{width: '15rem'}} className="rounded-circle" src={avatar} alt='' />)}
+            {user.image ? (<img style={{width: '15rem'}} src={user.image} className="rounded" alt={user.name} />) : (<img style={{width: '15rem'}} className="rounded-circle" src={avatar} alt='' />)}
           </li>
           <li className="list-group-item">
             <i className="fas fa-user text-info mr-1"></i>

@@ -4,6 +4,7 @@ const { User } = require('../../models/User');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const keys = require('../../config/keys');
 const { uploadImage } = require('../../utils/uploadImage');
 const { validateRegisterInput } = require('../../validation/register');
 const { validateLoginInput } = require('../../validation/login');
@@ -15,7 +16,7 @@ const { validateLoginInput } = require('../../validation/login');
  */
 router.post('/register', async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
-  const accessCode = process.env.ACCESS_CODE;
+  const accessCode = keys.ACCESS_CODE;
   if (!isValid) {
     return res.status(400).json(errors);
   }

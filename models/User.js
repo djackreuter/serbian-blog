@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 const UserSchema = new mongoose.Schema({
   googleId: {
@@ -64,7 +65,7 @@ UserSchema.methods.generateAuthToken = function() {
       image: this.image || this.imageUrl,
       admin: this.admin
     };
-    jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, 
+    jwt.sign(payload, keys.SECRET_KEY, { expiresIn: '1h' }, 
     (err, token) => {
       if (err) {
         reject(err);
