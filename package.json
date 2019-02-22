@@ -10,7 +10,8 @@
   "author": "Dylan Reuter <djreuter45@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "server": "nodemon server.js",
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn start\" \"yarn run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn run build"
