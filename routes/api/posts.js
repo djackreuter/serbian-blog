@@ -4,6 +4,7 @@ const passport = require('passport');
 const { Post } = require('../../models/Post');
 const { uploadImage } = require('../../utils/uploadImage');
 const { validatePostInput } = require('../../validation/post');
+const sendEmail = require('../../utils/sendEmail');
 
 /**
  * @route  GET api/posts/
@@ -131,6 +132,7 @@ router.post('/:id/comment', passport.authenticate('jwt', { session: false }),
     };
     post.comments.unshift(comment);
     savedPost = await post.save();
+    await sendEmail(post.title);
     return res.json(savedPost);
   } catch (err) {
     return res.status(400).json(err);
