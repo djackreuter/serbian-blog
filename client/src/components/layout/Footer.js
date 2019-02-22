@@ -3,7 +3,7 @@ import React from 'react';
 export default () => {
   return (
     <footer className="mt-5">
-      Copyright &copy; {new Date().getFullYear()} Serbian Blog
+      Copyright &copy; {new Date().getFullYear()} Vladstories
     </footer>
   );
 }
