@@ -2,13 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Link } from 'react-router-dom';
-import { deletePost, addLike } from '../../actions/postActions';
+import { addLike } from '../../actions/postActions';
+import ReactTooltip from 'react-tooltip';
 
 class PostItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      disabled: true
+    }
+  }
 
-  onDeleteClick(id) {
-    this.props.deletePost(id);
+  componentDidMount() {
+    this.setState({ disabled: !this.props.auth.isAuthenticated });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.auth !== this.props.auth) {
+      this.setState({ disabled: !this.props.auth.isAuthenticated });
+    }
   }
 
   onLikeClick(id) {
@@ -25,7 +37,7 @@ class PostItem extends Component {
   }
 
   render() {
-    const { post, auth, showActions } = this.props;
+    const { post } = this.props;
     const postDate = new Date(post.date);
     return (
       <div className="card card-body mt-4">
@@ -45,23 +57,26 @@ class PostItem extends Component {
         </div>
         <div className="row">
           <div className="col-md-4 mt-4">
-          {showActions ? (
             <span>
-              <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
-                <i className={classnames('fas fa-thumbs-up', {
-                  'text-info': this.findUserLike(post.likes)
-                })}></i>
-                <span className="badge badge-light">{post.likes.length}</span>
-              </button>
-              <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
-                View Post
-              </Link>
-              {post.author._id === auth.user.id ? (
-              <button onClick={this.onDeleteClick.bind(this, post._id)} type="button" className="btn btn-danger mr-1" >
-                <i className="fa fa-times" />
-              </button>
-              ) : null}
-            </span>) : null}
+              {this.state.disabled ? (
+                <span data-tip="Login with Google to like">
+                  <button className="btn btn-light mr-1" type="button" disabled>
+                    <i className='fas fa-thumbs-up'></i>
+                    <span className="badge badge-light">
+                      {post.likes.length}
+                    </span>
+                  </button>
+                  <ReactTooltip />
+                </span>
+              ) : (
+                <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
+                  <i className={classnames('fas fa-thumbs-up', {
+                    'text-info': this.findUserLike(post.likes)
+                  })}></i>
+                  <span className="badge badge-light">{post.likes.length}</span>
+                </button>
+              )}
+            </span>
           </div>
         </div>
       </div>
@@ -69,20 +84,14 @@ class PostItem extends Component {
   }
 }
 
-PostItem.defaultProps = {
-  showActions: true
-}
-
 PostItem.propTypes = {
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  deletePost: PropTypes.func.isRequired,
-  addLike: PropTypes.func.isRequired,
-  showActions: PropTypes.bool
+  addLike: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { deletePost, addLike })(PostItem);
+export default connect(mapStateToProps, { addLike })(PostItem);
