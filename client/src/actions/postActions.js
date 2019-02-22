@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { GET_ERRORS, GET_POSTS, POST_LOADING, DELETE_POST, GET_POST } from './types';
+import { GET_ERRORS, GET_POSTS, POST_LOADING, DELETE_POST, GET_POST, CLEAR_ERRORS } from './types';
 
 export const addPost = (postData, history) => dispatch => {
+  dispatch(clearErrors());
   axios.post('/api/posts', postData)
   .then(res => history.push(`/post/${res.data._id}`))
     .catch(err => 
@@ -81,7 +82,14 @@ export const postLoading = () => {
   }
 }
 
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  }
+}
+
 export const addComment = (commentData, postId, history) => dispatch => {
+  dispatch(clearErrors());
   axios.post(`/api/posts/${postId}/comment`, commentData)
     .then(res => 
       dispatch({
