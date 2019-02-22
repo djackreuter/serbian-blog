@@ -1,7 +1,10 @@
 {
-  "name": "serbian-blog",
+  "name": "vladstories",
   "version": "1.0.0",
-  "description": "serbian blog",
+  "engines": {
+    "node": "10.6.0"
+  },
+  "description": "vladstories",
   "main": "server.js",
   "repository": "git@github.com:djackreuter/serbian-blog.git",
   "author": "Dylan Reuter <djreuter45@gmail.com>",
