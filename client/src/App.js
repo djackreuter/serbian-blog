@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import Navbar from './components/layout/Navbar';
-import Landing from './components/layout/Landing';
 import Footer from './components/layout/Footer';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -22,6 +21,7 @@ import './App.css';
 import EditUser from './components/edit-user/EditUser';
 import PostForm from './components/posts/PostForm';
 import NotFound from './components/not-found/NotFound';
+import About from './components/about/About';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -42,13 +42,13 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <Route exact path='/' component={Landing} />
+            <Route exact path='/' component={ Posts } />
             <div className="container">
               <Route exact path="/register" component={ Register } />
               <Route exact path="/login" component={ Login } />
               <Route exact path="/add-post" component={ PostForm } />
               <Route exact path="/posts" component={ Posts } />
-              <Route exact path="/manage-posts" component={ Posts } />
+              <Route exact path="/about" component={ About } /> 
               <Route exact path="/post/:id" component={ Post } />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={ Dashboard } />
