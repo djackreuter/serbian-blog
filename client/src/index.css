@@ -52,4 +52,11 @@ a {
    height: 30rem;
  }
 
+ body {
+  font-family: 'Merienda', cursive;
+ }
+
+ .heading-text {
+  font-family: 'Acme', sans-serif;
+ }
  
