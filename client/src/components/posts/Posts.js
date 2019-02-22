@@ -24,6 +24,7 @@ class Posts extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
+            <h1 className="text-left heading-text mt-4 display-4">A wise man once said...</h1>
             {postContent}
           </div>
         </div> 

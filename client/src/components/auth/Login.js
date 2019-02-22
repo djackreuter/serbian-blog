@@ -30,7 +30,7 @@ class Login extends Component {
   }
 
   componentDidUpdate(prevState) {
-    if (this.props.auth.isAuthenticated) {
+    if (this.props.auth.isAuthenticated && this.props.auth.isAdmin) {
       this.setState({ isAuthenticated: this.props.auth.isAuthenticated });
       this.props.history.push('/dashboard');
     }

@@ -77,7 +77,7 @@ class Register extends Component {
                 <TextFieldGroup 
                   type="text"
                   error={errors.name}
-                  placeholder="Name"
+                  placeholder="*Name"
                   name="name"
                   value={this.state.name}
                   onChange={this.onChange}
@@ -85,7 +85,7 @@ class Register extends Component {
                 <TextFieldGroup 
                   type="email"
                   error={errors.email}
-                  placeholder="Email Address"
+                  placeholder="*Email Address"
                   name="email"
                   value={this.state.email}
                   onChange={this.onChange}
@@ -93,7 +93,7 @@ class Register extends Component {
                 <TextFieldGroup 
                   type="password"
                   error={errors.password}
-                  placeholder="Password"
+                  placeholder="*Password"
                   name="password"
                   value={this.state.password}
                   onChange={this.onChange}
@@ -101,7 +101,7 @@ class Register extends Component {
                 <TextFieldGroup 
                   type="password"
                   error={errors.password2}
-                  placeholder="Confirm Password"
+                  placeholder="*Confirm Password"
                   name="password2"
                   value={this.state.password2}
                   onChange={this.onChange}
@@ -109,7 +109,7 @@ class Register extends Component {
                 <TextFieldGroup 
                 type="text"
                 error={errors.accessCode}
-                placeholder="Access Code"
+                placeholder="*Access Code"
                 name="accessCode"
                 value={this.state.accessCode}
                 onChange={this.onChange}
@@ -117,7 +117,7 @@ class Register extends Component {
                 <TextAreaFieldGroup 
                   rows="3"
                   cols="33"
-                  placeholder="Bio"
+                  placeholder="*Bio"
                   name="bio"
                   value={this.state.bio}
                   error={errors.bio}

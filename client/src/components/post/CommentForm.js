@@ -48,7 +48,6 @@ class CommentForm extends Component {
   }
 
   responseGoogle = (response) => {
-    console.log(response);
     this.props.setGoogleUser(response.profileObj);
   }
 

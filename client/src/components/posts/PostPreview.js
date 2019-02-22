@@ -25,8 +25,8 @@ class PostPreview extends Component {
         <div className="row">
           <div className="col-md-4 mt-4">
             <span>
-              <i className='fas fa-thumbs-up text-info'></i>
-              <span className="badge badge-light">{post.likes.length}</span>
+              <i className='fas fa-thumbs-up'></i>
+              <span className="mx-1">{post.likes.length}</span>
               <Link to={`/post/${post._id}`} className="btn btn-info ml-2">
                 View Post
               </Link>

@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = _.pick(req.body, ['email', 'password']);
     let user = await User.findOne({ email });
-    if (!user) {
+    if (!user || user.googleId) {
       errors.login = 'Email or password is incorrect';
       return res.status(404).json(errors);
     }
