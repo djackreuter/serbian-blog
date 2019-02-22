@@ -7,7 +7,7 @@ import { deletePost, addLike } from '../../actions/postActions';
 class PostPreview extends Component {
 
   render() {
-    const { post, auth } = this.props;
+    const { post } = this.props;
     const postDate = new Date(post.date);
     return (
       <div className="card card-body mt-5">
@@ -30,11 +30,6 @@ class PostPreview extends Component {
               <Link to={`/post/${post._id}`} className="btn btn-info ml-2">
                 View Post
               </Link>
-              {post.author._id === auth.user.id ? (
-              <button onClick={this.onDeleteClick.bind(this, post._id)} type="button" className="btn btn-danger mr-1" >
-                <i className="fa fa-times" />
-              </button>
-              ) : null}
             </span>
           </div>
         </div>
