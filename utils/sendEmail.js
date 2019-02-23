@@ -6,8 +6,8 @@ const mg = mailgun({apiKey, domain });
 module.exports = sendEmail = (postTitle) => {
   return new Promise((resolve, reject) => {
     const data = {
-      from: 'Dylan <djreuter45@gmail.com>',
-      to: 'djreuter45@gmail.com',
+      from: 'Admin <djreuter45@gmail.com>',
+      to: 'darkserb@gmail.com',
       subject: 'Your post has a new comment!',
       text: `Your post "${postTitle}" has a new comment!`
     };

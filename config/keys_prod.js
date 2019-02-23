@@ -7,5 +7,6 @@ module.exports = {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   ACCESS_CODE: process.env.ACCESS_CODE,
-  MAILGUN_API_KEY: process.env.MAILGUN_API_KEY
+  MAILGUN_API_KEY: process.env.MAILGUN_API_KEY,
+  DOMAIN: process.env.DOMAIN
   }
