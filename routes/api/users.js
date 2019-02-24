@@ -93,6 +93,7 @@ router.post('/google', async (req, res) => {
   try {
     const user = await User.findOne({ googleId });
     if (user) {
+      console.log('user found', user);
       const token = await user.generateAuthToken();
       return res.json({ token: `Bearer ${token}` });
     }
@@ -102,6 +103,7 @@ router.post('/google', async (req, res) => {
       email,
       image: imageUrl
     });
+    console.log('new user', newUser);
     const googleUser = await newUser.save();
     const token = await googleUser.generateAuthToken();
     return res.json({ token: `Bearer ${token}` });

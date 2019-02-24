@@ -32,10 +32,12 @@ export const loginUser = userData => dispatch => {
 export const setGoogleUser = profile => dispatch => {
   axios.post('/api/users/google', profile)
     .then(res => {
+      console.log('res from api', res.data)
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       const decoded = jwt_decode(token);
+      console.log('decoded token', decoded);
       dispatch(setCurrentUser(decoded));
     })
     .catch(err => dispatch({
