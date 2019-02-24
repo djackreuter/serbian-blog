@@ -48,7 +48,7 @@ class CommentForm extends Component {
   }
 
   responseGoogle = (response) => {
-    console.log('Google response called');
+    console.log(response);
     this.props.setGoogleUser(response.profileObj);
   }
 

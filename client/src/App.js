@@ -25,7 +25,6 @@ import About from './components/about/About';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
-  console.log('call in App.js');
   const decoded = jwt_decode(localStorage.jwtToken);
   store.dispatch(setCurrentUser(decoded));
   const currentTime = Date.now() / 1000;

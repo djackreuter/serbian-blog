@@ -14,7 +14,6 @@ class PostItem extends Component {
   }
 
   componentDidMount() {
-    console.log('post item component did mount', this.props.auth);
     this.setState({ disabled: !this.props.auth.isAuthenticated });
   }
 
