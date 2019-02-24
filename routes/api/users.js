@@ -88,6 +88,7 @@ router.post('/login', async (req, res) => {
  * @access public
  */
 router.post('/google', async (req, res) => {
+  console.log('google route hit', req.body);
   const { googleId, name, email, imageUrl } = req.body;
   try {
     const user = await User.findOne({ googleId });
