@@ -59,4 +59,8 @@ a {
  .heading-text {
   font-family: 'Acme', sans-serif;
  }
+
+ .post-body-content {
+   white-space: pre-line;
+ }
  

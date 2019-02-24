@@ -14,6 +14,7 @@ class PostItem extends Component {
   }
 
   componentDidMount() {
+    console.log('post item component did mount', this.props.auth);
     this.setState({ disabled: !this.props.auth.isAuthenticated });
   }
 
@@ -52,7 +53,7 @@ class PostItem extends Component {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <p className="text-left">{post.body}</p>
+            <p className="text-left post-body-content">{post.body}</p>
           </div>
         </div>
         <div className="row">
