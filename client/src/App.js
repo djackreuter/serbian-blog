@@ -22,6 +22,7 @@ import EditUser from './components/edit-user/EditUser';
 import PostForm from './components/posts/PostForm';
 import NotFound from './components/not-found/NotFound';
 import About from './components/about/About';
+import EditPost from './components/posts/EditPost';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -55,6 +56,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/edit-user" component={ EditUser } />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/edit-post/:id" component={ EditPost } />
               </Switch>
               <Route exact path="/not-found" component={ NotFound } />
             </div>
