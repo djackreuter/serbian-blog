@@ -91,7 +91,6 @@ router.patch('/:id', passport.authenticate('jwt', { session: false }),
         return res.status(404).json(errors);
       }
       if (req.user.id.toString() !== post.author._id.toString()) {
-        console.log("'" + req.user._id + "'", "'" + post.author._id + "'")
         errors.notauthorized = "You dont have permission to edit this post";
         return res.status(401).json(errors);
       }
