@@ -47,6 +47,16 @@ export const getPost = (id) => dispatch => {
     )
 }
 
+export const editPost = (postData, history) => dispatch => {
+  axios.patch(`/api/posts/${postData.id}`, postData)
+    .then(res => history.push(`/post/${postData.id}`))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    })
+  )
+}
+
 export const deletePost = id => dispatch => {
   axios.delete(`/api/posts/${id}`)
     .then(res => 

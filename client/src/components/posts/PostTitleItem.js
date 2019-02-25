@@ -30,6 +30,9 @@ class PostTitleItem extends Component {
               <Link to={`/post/${post._id}`} onClick={this.closeModal.bind(this)} className="btn btn-info mr-1">
                 View Post
               </Link>
+              <Link to={`/edit-post/${post._id}`} onClick={this.closeModal.bind(this)} className="btn btn-warning mr-1">
+                Edit Post
+              </Link>
               {post.author._id === auth.user.id ? (
               <button onClick={this.onDeleteClick.bind(this, post._id)} type="button" className="btn btn-danger mr-1" >
                 <i className="fa fa-times" />
