@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
  * @access public
  */
 router.get('/:id', async (req, res) => {
-  errors = {};
+  let errors = {};
   try {
     const post = await Post.findById(req.params.id).populate('author', 'name');
     if (!post) {
@@ -74,6 +74,36 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       return res.status(400).json(err);
     }
 });
+
+/**
+ * @route PATCH api/posts/:id
+ * @desc update a post
+ * @access private
+ */
+router.patch('/:id', passport.authenticate('jwt', { session: false }), 
+  async (req, res) => {
+    let errors = {};
+    try {
+      const post = await Post.findById(req.params.id)
+        .populate('author', '_id');
+      if (!post) {
+        errors.nopost = "Post not found";
+        return res.status(404).json(errors);
+      }
+      if (req.user.id.toString() !== post.author._id.toString()) {
+        console.log("'" + req.user._id + "'", "'" + post.author._id + "'")
+        errors.notauthorized = "You dont have permission to edit this post";
+        return res.status(401).json(errors);
+      }
+      if (req.body.title) post.title = req.body.title;
+      if (req.body.body) post.body = req.body.body;
+      if (req.body.image) post.image = await uploadImage(req.body.image);
+      const updatedPost = await post.save();
+      return res.json(updatedPost);
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  });
 
 /**
  * @route  DELETE api/posts
