@@ -23,7 +23,7 @@ class About extends Component {
           )}
           <p className="lead"><strong>{admin.name}</strong></p>
           <div className="row">
-            <div className="col-md-10">
+            <div className="col-md-12">
               <p>{admin.bio}</p>
             </div>
           </div>
