@@ -8,6 +8,7 @@ const path = require('path');
 
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
+const subscribers = require('./routes/api/subscribers');
 
 const db = require('./config/keys').MONGODB_URI;
 const app = express();
@@ -25,6 +26,7 @@ require('./config/passport')(passport);
 
 app.use('/api/users', users);
 app.use('/api/posts', posts);
+app.use('/api/subscribers', subscribers);
 
 // production
 if (process.env.NODE_ENV === 'production') {

@@ -1,9 +1,6 @@
 {
   "name": "vladstories",
   "version": "1.0.0",
-  "engines": {
-    "node": "10.6.0"
-  },
   "description": "vladstories",
   "main": "server.js",
   "repository": "git@github.com:djackreuter/serbian-blog.git",
