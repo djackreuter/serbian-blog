@@ -10,3 +10,5 @@ export const GET_POST = 'GET_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const POST_LOADING = 'POST_LOADING';
 export const GET_ADMIN_USER = 'GET_ADMIN_USER';
+export const GET_SUBSCRIBER_COUNT = 'GET_SUBSCRIBER_ACCOUNT';
+export const ADD_SUBSCRIBER = 'ADD_SUBSCRIBER';
