@@ -6,6 +6,18 @@ import TextFieldGroup from '../common/TextFieldGroup';
 class SubscribeModal extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            errors: {}
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.errors !== this.props.errors) {
+            this.setState({ errors: this.props.errors });
+        }
     }
 
     render() {

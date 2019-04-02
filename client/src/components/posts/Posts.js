@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../common/spinner';
 import { getPosts } from '../../actions/postActions';
 import PostFeed from './PostFeed';
+import SubscribeModal from './SubscribeModal';
 
 class Posts extends Component {
   componentDidMount() {
@@ -23,11 +24,25 @@ class Posts extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-8">
             <h1 className="text-left heading-text mt-4 display-4">A wise man once said...</h1>
-            {postContent}
           </div>
-        </div> 
+          <div className="col-md-4">
+            <button 
+                className="btn btn-warning mt-4" 
+                data-toggle="modal" 
+                data-target="#subModal"
+            >
+                Subscribe
+            </button>
+            <SubscribeModal />
+          </div>
+        </div>
+        <div className="row">
+            <div className="col-md-12">
+                {postContent}
+            </div>
+        </div>
       </div>
     )
   }
